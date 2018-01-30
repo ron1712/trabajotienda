@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface IProducto {
      public int insertar(Producto producto) throws Exception;
-     public Producto obtener(int codigo) throws Exception;
-    public List<Producto> obtener() throws Exception;
+     public Producto obtener() throws Exception;
+    public List<Producto> obtener(int codigo) throws Exception;
     
 }

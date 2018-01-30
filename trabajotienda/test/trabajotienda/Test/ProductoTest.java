@@ -18,9 +18,7 @@ public class ProductoTest {
         //              INSERTAR
         int filasAfectadas =0;
         IProducto productoDao = new ProductoImp();
-        IPersona personaDao = new PersonaImp();
-        Persona persona = personaDao.obtener(3);
-        Producto producto = new Producto(3,persona,"Arroz","215");
+        Producto producto = new Producto(3,"Arroz","215");
         try{
             filasAfectadas = productoDao.insertar(producto);
             System.out.println("Producto ingresado!!!\n");
@@ -32,9 +30,8 @@ public class ProductoTest {
         //              LISTADO DE PEdido
         List<Producto> lista = new ArrayList<>();
         try {
-            lista = productoDao.obtener();
+            lista = productoDao.obtener(1);
             for (Producto c:lista){
-                System.out.println("Id_persona :"+c.getPersona().getCodigo());
                 System.out.println("Codigo :"+c.getCod_producto());
                 System.out.println("Nombre  :"+c.getNombre());
             System.out.println("Stock :"+c.getStock());

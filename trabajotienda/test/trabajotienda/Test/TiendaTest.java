@@ -1,10 +1,10 @@
 package trabajotienda.Test;
-import trabajotienda.rnegocio.entidades.Tienda;
-import trabajotienda.rnegocio.entidades.Persona;
-import trabajotienda.rnegocio.dao.ITienda;
-import trabajotienda.rnegocio.dao.IPersona;
-import trabajotienda.rnegocio.impl.TiendaImp;
-import trabajotienda.rnegocio.impl.PersonaImp;
+import trabajotienda.rnegocio.entidades.*;
+import trabajotienda.rnegocio.entidades.*;
+import trabajotienda.rnegocio.dao.*;
+import trabajotienda.rnegocio.dao.*;
+import trabajotienda.rnegocio.impl.*;
+import trabajotienda.rnegocio.impl.*;
 import java.util.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -19,7 +19,9 @@ public class TiendaTest {
         ITienda tiendaDao = new TiendaImp();
         IPersona personaDao = new PersonaImp();
         Persona persona = personaDao.obtener(3);
-        Tienda tienda = new Tienda(2,persona,"Minimarket","Ayacucho y New york", "987123");
+        IProducto productoDao = new ProductoImp();
+        Producto producto = productoDao.obtener();
+        Tienda tienda = new Tienda(2,persona,producto,"Minimarket","Ayacucho y New york", "987123");
         try{
             filasAfectadas = tiendaDao.insertar(tienda);
             System.out.println("Tienda ingresado!!!\n");
