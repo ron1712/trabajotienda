@@ -3,14 +3,19 @@ package trabajotienda.rnegocio.vistas;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.util.*;
 import trabajotienda.rnegocio.dao.IPersona;
 import trabajotienda.rnegocio.dao.IProducto;
+import trabajotienda.rnegocio.dao.ITienda;
 import trabajotienda.rnegocio.entidades.Persona;
 import trabajotienda.rnegocio.entidades.Producto;
+import trabajotienda.rnegocio.entidades.Tienda;
 import trabajotienda.rnegocio.impl.PersonaImp;
 import trabajotienda.rnegocio.impl.ProductoImp;
+import trabajotienda.rnegocio.impl.TiendaImp;
 
 public class FrmNuevaTienda extends JInternalFrame {
 
@@ -64,6 +69,12 @@ public class FrmNuevaTienda extends JInternalFrame {
         cbxProducto = new JComboBox(lstProductos.toArray());
 
         btnIngresar = new JButton("Ingresar");
+        btnIngresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnIngresarActionPerformed(e);
+            }
+        });
         btnLimpiar = new JButton("Limpiar");
         btnCancelar = new JButton("Cancelar");
 
@@ -86,7 +97,7 @@ public class FrmNuevaTienda extends JInternalFrame {
 
         this.add(pnlTienda, BorderLayout.CENTER);
         this.add(pnlBotones, BorderLayout.SOUTH);
-        this.setSize(400,300);
+        this.setSize(400, 300);
         this.setClosable(true);
 
     }
@@ -95,8 +106,8 @@ public class FrmNuevaTienda extends JInternalFrame {
         FrmNuevaTienda frmMenu = new FrmNuevaTienda();
         frmMenu.setVisible(true);
     }
-    
-    public void cargarPersonas(){
+
+    public void cargarPersonas() {
         IPersona personaDao = new PersonaImp();
         try {
             lstPersonas = personaDao.obtener();
@@ -104,6 +115,7 @@ public class FrmNuevaTienda extends JInternalFrame {
             JOptionPane.showMessageDialog(this, "ERROR AL CARGAR CURSOS", "ERROR" + e.getMessage(), JOptionPane.INFORMATION_MESSAGE);
         }
     }
+
     public void cargarProductos() {
         IProducto productoDao = new ProductoImp();
         try {
@@ -112,4 +124,27 @@ public class FrmNuevaTienda extends JInternalFrame {
             JOptionPane.showMessageDialog(this, "ERROR AL CARGAR CURSOS", "ERROR" + e.getMessage(), JOptionPane.INFORMATION_MESSAGE);
         }
     }
+
+    public void btnIngresarActionPerformed(ActionEvent e) {
+        Tienda nTienda = new Tienda();
+        try {
+
+            ITienda tiendaDao = new TiendaImp();
+            nTienda.setCod_tienda(Integer.parseInt(codTienda.getText()));
+            nTienda.setNombre(nombre.getText());
+            nTienda.setDireccion(direccion.getText());
+            nTienda.setTelefono(telefono.getText());
+            nTienda.setPersona((Persona) cbxPersonas.getSelectedItem());
+            nTienda.setProducto((Producto) cbxProducto.getSelectedItem());
+            if (tiendaDao.insertar(nTienda) > 0) {
+                    JOptionPane.showMessageDialog(this, "PROCESO CORRECTO!!", "Transaction", JOptionPane.INFORMATION_MESSAGE);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "ERROR", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+                }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "ERROR !! " + ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
 }
