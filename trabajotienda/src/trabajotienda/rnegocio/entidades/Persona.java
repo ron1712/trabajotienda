@@ -1,5 +1,7 @@
 package trabajotienda.rnegocio.entidades;
+
 public class Persona {
+
     private int codigo;
     private String nombre;
     private String telefono;
@@ -46,15 +48,10 @@ public class Persona {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    
-    
-    
 
-    
-
-    
-
-    
-    
+    @Override
+    public String toString() {
+        return nombre;
     }
 
+}

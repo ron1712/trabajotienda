@@ -1,6 +1,9 @@
 package trabajotienda.rnegocio.entidades;
+
 import java.util.*;
+
 public class Producto {
+
     private int cod_producto;
     private String nombre;
     private String stock;
@@ -13,6 +16,7 @@ public class Producto {
         this.nombre = nombre;
         this.stock = stock;
     }
+
     public int getCod_producto() {
         return cod_producto;
     }
@@ -35,6 +39,11 @@ public class Producto {
 
     public void setStock(String stock) {
         this.stock = stock;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 
 }
