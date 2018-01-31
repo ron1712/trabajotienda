@@ -1,36 +1,31 @@
+
 package trabajotienda.rnegocio.entidades;
 
-public class Persona {
+import trabajotienda.rnegocio.entidades.*;
 
-    private int codigo;
+
+public class Persona {
+    private String codigoc;
     private String nombre;
+    private String apellido;
     private String telefono;
-    private String cedula;
 
     public Persona() {
     }
 
-    public Persona(int codigo, String nombre, String telefono, String cedula) {
-        this.codigo = codigo;
+    public Persona(String codigoc, String nombre, String apellido, String telefono) {
+        this.codigoc = codigoc;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.telefono = telefono;
-        this.cedula = cedula;
     }
 
-    public String getCedula() {
-        return cedula;
+    public String getCodigoc() {
+        return codigoc; 
     }
 
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCodigoc(String codigoc) {
+        this.codigoc = codigoc;
     }
 
     public String getNombre() {
@@ -41,6 +36,14 @@ public class Persona {
         this.nombre = nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
     public String getTelefono() {
         return telefono;
     }
@@ -48,10 +51,9 @@ public class Persona {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-    @Override
+     @Override
     public String toString() {
-        return nombre;
+        return nombre; 
     }
-
+    
 }

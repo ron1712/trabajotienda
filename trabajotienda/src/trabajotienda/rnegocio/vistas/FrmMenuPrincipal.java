@@ -1,195 +1,207 @@
 package trabajotienda.rnegocio.vistas;
 
+import trabajotienda.rnegocio.vistas.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import trabajotienda.rnegocio.dao.*;
+import trabajotienda.rnegocio.entidades.*;
+import trabajotienda.rnegocio.impl.*;
+
 
 public class FrmMenuPrincipal extends JFrame {
 
-    JMenuBar mnbPrincipal;
-    JMenu mnInicio;
-    JMenuItem mniLogin;
-    JMenuItem mniSalir;
-        /*Persona */
-    JMenu mnPersona;
-    JMenuItem mniNuevaPersona;
-    JMenuItem mniListadoNuevaPersona;
-    JMenuItem mniInsertarPersona;
-    JMenuItem mniListarPersona;
-    JDesktopPane dkpEscritorio;
-/*Producto*/
-    JMenu mnProducto;
-    JMenuItem mniNuevoProducto;
-    JMenuItem mniListadoNuevoProducto;
-    JMenuItem mniInsertarProducto;
-    JMenuItem mniListarProducto;
-    
-    /**Tienda*/
-    JMenu mnTienda;
-    JMenuItem mniNuevaTienda;
-    JMenuItem mniInsertarNuevaTienda;
-    JMenuItem mniListarTienda;
-  
+    JMenuBar menuBarraPrincipal;
+    JMenu menuInicio;
+    JMenuItem menuItemLogin;
+    JMenuItem menuItemSalir;
+    ///////////////////////////////
+    JMenu menuCliente;
+    JMenuItem nuevoCliente;
+    JMenuItem modificarCliente;
+    JMenuItem eliminarCliente;
+    JMenuItem buscarCliente;
+    JMenuItem listCliente;
+    /////////////////////////////////////////
+    JMenu menuProducto;
+    JMenuItem nuevoProducto;
+    JMenuItem modificarProducto;
+    JMenuItem eliminarProducto;
+    JMenuItem buscarProducto;
+    JMenuItem listProducto;
+    ///////////////////////////////////////////////
+    JMenu menuCompra;
+    JMenuItem nuevoCompra;
+    JMenuItem modificarCompra;
+    JMenuItem eliminarCompra;
+    JMenuItem buscarCompra;
+    JMenuItem listCompra;
+    ///////////////////////////////////////
+    JDesktopPane escritorio;
 
     public FrmMenuPrincipal() {
-        dkpEscritorio= new JDesktopPane();
-        dkpEscritorio.setBackground(Color.getHSBColor(10,200,200).brighter());
-        
-        
-        mnbPrincipal = new JMenuBar();
-        
-        mnInicio = new JMenu("INICIO");
-        mnInicio.setForeground(Color.PINK);
-        mniLogin = new JMenuItem("INICIAR SESION");
-        mniSalir = new JMenuItem("SALIR");
-        mniSalir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mniSalirActionPerformed(e);
-            }
-        });
-        
-        /*Persona*/
-        mnPersona= new JMenu("Persona");
-        mnPersona.setForeground(Color.PINK);
-        mniNuevaPersona= new JMenuItem("NUEVO");
-             
-        mniNuevaPersona.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mniNuevoPersonaActionPerformed(e);
-            }
+        escritorio = new JDesktopPane();
+       /* escritorio.setBackground(new Color(50, 30, 70));*/
 
-        });
-        
-        mniInsertarPersona= new JMenuItem("INSERTAR");
-        mniNuevaPersona= new JMenuItem("LISTAR");
-        
-        mniNuevaPersona.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mniListadoNuevaPersonaActionPerformed(e);
-            }
-        });
-       
-        mniNuevaPersona.add(mniNuevaPersona);
-        mniNuevaPersona.add(mniInsertarPersona);
-        mniNuevaPersona.addSeparator();
-        mniNuevaPersona.add( mniListarPersona);
-        
-        /*Producto */
-              mniNuevoProducto.setForeground(Color.PINK);
-        mniNuevoProducto= new JMenuItem("NUEVO");
-             
-        mniNuevoProducto.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mniNuevoProductoActionPerformed(e);
-            }
-        });
-        
-        mniInsertarProducto= new JMenuItem("INSERTAR");
-       mniListarProducto= new JMenuItem("LISTAR");
-        
-        mniListadoNuevaPersona.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mniListadoNuevaPersonaActionPerformed(e);
-            }
-        });
-       
-        mniNuevoProducto.add(mniNuevoProducto);
-        mniNuevoProducto.add(mniInsertarProducto);
-        
-        mniNuevoProducto.add(mniListarProducto);
-       
-        
-        /*Tienda */
-        
-      
-        mniNuevaTienda.setForeground(Color.PINK);
-        mniNuevaTienda= new JMenuItem("NUEVA");
-        mniInsertarNuevaTienda = new JMenuItem("INSERTAR");
-        mniListarTienda = new JMenuItem("LISTAR");
-        
-        mniNuevaTienda.add(mniNuevaTienda);
-        mniNuevaTienda.add(mniInsertarNuevaTienda);
-        mniNuevaTienda.add(mniListarTienda);
-        
-        mniNuevaTienda.addActionListener(new ActionListener() {
+        menuBarraPrincipal = new JMenuBar();
+        //menu Inicio
+        menuInicio = new JMenu("Inicio");
+        menuItemLogin = new JMenuItem("Iniciar Sesion");
+        menuItemSalir = new JMenuItem("Salir");
+        menuItemSalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    mniNuevaTiendaActionPerformed(e);
-                } catch (Exception x) {System.out.println("ERROR"+x.getMessage());
+                    menuSalirActionPerformed(e);
+                } catch (Exception ex) {
+                    System.out.println("error: " + ex.getMessage());
                 }
             }
         });
-        /*UBICAION DE BOTONES*/
-        mnbPrincipal.add(mnInicio);
-        mnbPrincipal.add(mniNuevaPersona);
-        mnbPrincipal.add(mniNuevoProducto);
-        mnbPrincipal.add(mniNuevaTienda);
+        menuBarraPrincipal.add(menuInicio);
+        menuInicio.add(menuItemLogin);
+        menuInicio.add(menuItemSalir);
         
-        mnbPrincipal.setBackground(Color.lightGray);
-        mnInicio.add(mniLogin);
-        mnInicio.add(mniSalir);
-      
+        menuCliente = new JMenu("PERSONA");
+        nuevoCliente = new JMenuItem("Nueva Persona");
+        nuevoCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NuevoPersonaActionPerformed(e);
+            }
+        });
+        modificarCliente = new JMenuItem("Modificar Persona");
+        eliminarCliente = new JMenuItem("Eliminar Persona");
+        buscarCliente = new JMenuItem("Buscar Persona");
+        listCliente = new JMenuItem("Listar Personas");
+        listCliente.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listaPersonaActionPerformed(e);
+            }
+        });
+        menuCliente.add(nuevoCliente);
+        menuCliente.add(modificarCliente);
+        menuCliente.add(eliminarCliente);
+        menuCliente.addSeparator();
+        menuCliente.add(buscarCliente);
+        menuCliente.add(listCliente);
+        
+        menuBarraPrincipal.add(menuCliente);
+       
+        ////////////////////////////////////////////
+        menuProducto = new JMenu("PRODUCTO");
+        nuevoProducto = new JMenuItem("Nuevo Producto");
+        nuevoProducto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NuevoProductoActionPerformed(e);
+            }
+        });
+        modificarProducto = new JMenuItem("Modificar Producto");
+        eliminarProducto = new JMenuItem("Eliminar Producto");
+        buscarProducto = new JMenuItem("Buscar Producto");
+        listProducto = new JMenuItem("Listar Producto");
+        listProducto.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listaProductoActionPerformed(e);
+            }
+        });
+        menuProducto.add(nuevoProducto);
+        menuProducto.add(modificarProducto);
+        menuProducto.add(eliminarProducto);
+        menuProducto.addSeparator();
+        menuProducto.add(buscarProducto);
+        menuProducto.add(listProducto);
+        
+        menuBarraPrincipal.add(menuProducto);
+       
+        ///////////////////////////////////////////////////////////////
+        menuCompra = new JMenu("TIENDA");
+        nuevoCompra = new JMenuItem("Nueva Tienda");
+        nuevoCompra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NuevoTiendaActionPerformed(e);
+            }
+        });
+        modificarCompra = new JMenuItem("Modificar Tienda");
+        eliminarCompra = new JMenuItem("Eliminar Tienda");
+        buscarCompra = new JMenuItem("Buscar Tienda");
+        listCompra = new JMenuItem("Listar Tienda");
+        listCompra.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listaTiendaActionPerformed(e);
+            }
+        });
+        menuCompra.add(nuevoCompra);
+        menuCompra.add(modificarCompra);
+        menuCompra.add(eliminarCompra);
+        menuCompra.addSeparator();
+        menuCompra.add(buscarCompra);
+        menuCompra.add(listCompra);
+        
+        menuBarraPrincipal.add(menuCompra);
+       
+        ///////////////////////////////////////////////////////////////////////
+        
+        
+        
         this.setLayout(new BorderLayout());
-        this.add(mnbPrincipal, BorderLayout.NORTH);
-        this.add(dkpEscritorio, BorderLayout.CENTER);
-        this.setExtendedState(MAXIMIZED_BOTH); //Para maximizar
-     
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE); //Para terminar el programa
-    }
-    
-    
-    /*METODOS*/
-    
-    public void mniNuevoPersonaActionPerformed(ActionEvent e){
-        FrmListadoPersona frm = new FrmListadoPersona();
+        //this.setSize(360,240);
+        this.add(menuBarraPrincipal, BorderLayout.NORTH);
+        this.add(escritorio, BorderLayout.CENTER);
+        this.setExtendedState(MAXIMIZED_BOTH); //PARA MAXIMIZAR LA VENTANA
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//terminar proceso de la ventana ejecutada
         
-        dkpEscritorio.add(frm,BorderLayout.WEST);
-      
-        frm.setVisible(true);
+
     }
-        public void mniNuevaTiendaActionPerformed(ActionEvent e){
-        FmrNuevaTienda frm = new FmrNuevaTienda();
-        dkpEscritorio.add(frm,BorderLayout.SOUTH);
-        
-        frm.setVisible(true);
+
+    public static void main(String[] args) {
+        FrmMenuPrincipal ventana = new FrmMenuPrincipal();
+        ventana.setVisible(true);
     }
-       public void mniNuevoProductoActionPerformed(ActionEvent e){
-        FmrNuevoProducto frm = new FmrNuevoProducto();
-        frm.setTitle("PRODUCTO");
-        dkpEscritorio.add(frm,BorderLayout.SOUTH);
-        
-        frm.setVisible(true);
-    }
-        public void mniListadoProductoActionPerformed(ActionEvent e){
-        FrmListadoProducto frm = new FrmListadoProducto();
-        frm.setTitle("PRODUCTOS REGISTRADOS ");
-        dkpEscritorio.add(frm,BorderLayout.WEST);
-      
-        frm.setVisible(true);
-    } 
-    public void mniListaPersonaActionPerformed(ActionEvent e){
-        FrmListadoPersona frm = new FrmListadoPersona();
-        frm.setTitle("ESTUDIANTES REGISTRADOS");
-        
-        dkpEscritorio.add(frm,BorderLayout.WEST);
-      
-        frm.setVisible(true);
-    }       
-    public void mniSalirActionPerformed(ActionEvent e){
+
+    public void menuSalirActionPerformed(ActionEvent e) {
         System.exit(0);
     }
     
-    public static void main(String[] args) {
-        FrmMenuPrincipal frm = new FrmMenuPrincipal();
+     public void listaPersonaActionPerformed(ActionEvent e) {
+        FrmListaPersona frm = new FrmListaPersona();
+        escritorio.add(frm);
+        frm.setVisible(true);
+    }
+      public void listaTiendaActionPerformed(ActionEvent e) {
+        FrmListaTienda frm = new FrmListaTienda();
+        escritorio.add(frm);
+        frm.setVisible(true);
+    }
+     
+     public void listaProductoActionPerformed(ActionEvent e) {
+        FrmListaProducto frm = new FrmListaProducto();
+        escritorio.add(frm);
+        frm.setVisible(true);
+    }
+     public void NuevoPersonaActionPerformed(ActionEvent e) {
+        FrmNuevaPersona frm = new FrmNuevaPersona();
+        escritorio.add(frm);
+        frm.setVisible(true);
+    }
+
+      public void NuevoTiendaActionPerformed(ActionEvent e) {
+        FrmNuevaTienda frm = new FrmNuevaTienda();
+        escritorio.add(frm);
+        frm.setVisible(true);
+    }
+      
+       public void NuevoProductoActionPerformed(ActionEvent e) {
+        FrmNuevoProducto frm = new FrmNuevoProducto();
+        escritorio.add(frm);
         frm.setVisible(true);
     }
 }
-
